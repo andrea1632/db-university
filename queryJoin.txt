@@ -1,0 +1,61 @@
+						---query con JOIN---
+
+1)
+
+SELECT students.id AS 'id studente', students.name AS 'nome studente', students.surname AS 'cognome studente', students.date_of_birth AS 'data di nascita', degrees.name 'corso'
+FROM students
+INNER JOIN degrees 
+ON degrees.id = students.degree_id
+WHERE degrees.id = 53;
+
+2)
+
+SELECT departments.id AS 'id dipartimento', departments.name AS 'nome dipartimento', degrees.id 'id degrees', degrees.name 'degrees name', degrees.level AS 'degrees level' 
+FROM departments
+INNER JOIN degrees
+ON degrees.department_id = departments.id 
+WHERE degrees.department_id = 7 AND degrees.level = "Magistrale";
+
+3)
+
+SELECT courses.id AS 'id corso', courses.name AS 'nome corso', courses.description AS 'descrizione corso'
+FROM courses
+INNER JOIN course_teacher
+ON course_teacher.course_id = courses.id
+WHERE course_teacher.teacher_id = 44;
+
+4)
+
+SELECT `students`.`surname` AS 'cognome studente', `students`.`name` AS 'nome studente', `degrees`.`name` AS 'degrees nanme', `departments`.`name` AS 'nome dipartimento'
+FROM `students`
+INNER JOIN `degrees`
+ON `degrees`.`id` = `students`.`degree_id`
+INNER JOIN `departments`
+ON `departments`.`id` = `degrees`.`department_id`
+ORDER BY `students`.`surname`, `students`.`name`;
+
+5)
+
+SELECT `degrees`.`name` AS 'laurea di', `courses`.`name` AS 'nome corso', `teachers`.`surname` AS 'cognome', `teachers`.`name` AS 'nome'
+FROM `degrees`
+INNER JOIN `courses`
+ON `courses`.`degree_id` = `degrees`.`id`
+INNER JOIN `course_teacher`
+ON `course_teacher`.`course_id` = `courses`.`id` 
+INNER JOIN `teachers`
+ON `teachers`.`id` = `course_teacher`.`teacher_id`;
+
+6)
+
+SELECT `teachers`.`*`
+FROM `degrees`
+INNER JOIN `departments`
+ON `departments`.`id` = `degrees`.`department_id`
+INNER JOIN `courses`
+ON `courses`.`degree_id` = `degrees`.`id`
+INNER JOIN `course_teacher`
+ON `courses`.`id` = `course_teacher`.`course_id`
+INNER JOIN `teachers`
+ON `teachers`.`id` = `course_teacher`.`teacher_id`
+WHERE `departments`.`id` = 5
+GROUP BY `teachers`.`id`;
